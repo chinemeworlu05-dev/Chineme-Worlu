@@ -1,0 +1,102 @@
+/* ==========================================================================
+   WORK PAGE
+   Desktop geometry from the 1440px reference, scaled down to 48vw-wide cards
+   (design: 872 x 485) zig-zagging
+   left / right / left.
+   ========================================================================== */
+
+.work-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: clip;
+}
+
+.work-page main {
+  flex: 1;
+}
+
+.work-cards {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(22px, 3.2vw, 52px);
+  padding: clamp(110px, 12vw, 180px) 9vw 0;
+}
+
+.work-card-slot {
+  width: 48vw;
+  aspect-ratio: 872 / 485;
+  opacity: 0; /* hidden until it pops */
+}
+
+.work-card-slot.is-popped {
+  opacity: 1;
+  animation: workCardPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(0.1s + var(--work-i, 0) * 0.14s);
+}
+
+.work-card-slot:nth-child(even) {
+  align-self: flex-end;
+}
+
+/* Pop up: rise from below, slightly small, overshoot and settle */
+@keyframes workCardPop {
+  0% {
+    opacity: 0;
+    transform: translateY(70px) scale(0.82);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Cards here are laid out by their slot, not the home page's sticky stack */
+.work-page .work-cards .project-card {
+  position: relative !important; /* beats the home page mobile sticky rule */
+  top: auto;
+  z-index: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.work-footer {
+  padding: clamp(80px, 9vw, 140px) 20px clamp(48px, 5vw, 80px);
+  text-align: center;
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   MOBILE — wider cards, zig-zag kept as a gentle offset
+   ========================================================================== */
+@media (max-width: 768px) {
+  .work-cards {
+    gap: 18px;
+    padding: 96px 20px 0;
+  }
+
+  /* Portrait cards on phones, matching the home page */
+  .work-card-slot {
+    width: 76%;
+    aspect-ratio: auto;
+  }
+
+  .work-footer {
+    padding: 72px 20px 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card-slot,
+  .work-card-slot.is-popped {
+    opacity: 1;
+    animation: none;
+  }
+}
