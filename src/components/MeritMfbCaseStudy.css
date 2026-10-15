@@ -600,3 +600,46 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   OPENING ANIMATION — plays once when the case study opens
+   Icon spins and pops in, wordmark wipes in, phones rise one by one.
+   ========================================================================== */
+@keyframes merit-icon-in {
+  from { opacity: 0; transform: scale(0.3) rotate(-90deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes merit-wipe-in {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-12px); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; }
+}
+
+@keyframes merit-phone-in {
+  from { opacity: 0; transform: translateY(90px) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+.merit-brand-icon {
+  animation: merit-icon-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+.merit-brand-wordmark {
+  animation: merit-wipe-in 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.45s both;
+}
+
+.merit-hero-phone {
+  animation: merit-phone-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.merit-hero-phone:nth-child(1) { animation-delay: 0.6s; }
+.merit-hero-phone:nth-child(2) { animation-delay: 0.75s; }
+.merit-hero-phone:nth-child(3) { animation-delay: 0.9s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .merit-brand-icon,
+  .merit-brand-wordmark,
+  .merit-hero-phone {
+    animation: none;
+  }
+}
