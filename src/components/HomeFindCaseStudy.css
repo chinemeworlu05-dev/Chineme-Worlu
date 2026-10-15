@@ -1088,17 +1088,18 @@
   padding-bottom: 32px;
 }
 
+/* Rounded-square speech bubble: grows with its text so nothing spills out */
 .cs-learned-circle-bubble {
   background: #211918;
-  border-radius: 50%;
+  border-radius: 28px;
   width: clamp(280px, 50vw, 560px);
-  height: clamp(280px, 50vw, 560px);
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: left;
-  padding: clamp(28px, 5vw, 60px);
+  padding: clamp(28px, 4vw, 52px);
   gap: 16px;
   position: relative;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
@@ -1107,7 +1108,7 @@
 .cs-learned-circle-bubble::after {
   content: '';
   position: absolute;
-  bottom: 8px;
+  bottom: -26px;
   left: 48px;
   border-width: 32px 32px 0 0;
   border-style: solid;
@@ -1929,18 +1930,17 @@
 
   .cs-learned-circle-bubble {
     width: 100%;
-    max-width: 340px;
+    max-width: 420px;
     height: auto;
-    min-height: 380px;
-    padding: 32px 24px 44px 24px;
-    border-radius: 180px 180px 180px 30px / 200px 200px 200px 60px;
+    padding: 28px 22px;
+    border-radius: 22px;
     gap: 12px;
     background: #231917;
     position: relative;
   }
 
   .cs-learned-circle-bubble::after {
-    bottom: -10px;
+    bottom: -22px;
     left: 40px;
     border-width: 28px 24px 0 0;
     border-color: #231917 transparent transparent transparent;
@@ -2020,7 +2020,7 @@
     max-width: 125px;
   }
   .cs-learned-circle-bubble {
-    padding: 26px 18px 38px 18px;
+    padding: 24px 18px;
   }
 }
 
