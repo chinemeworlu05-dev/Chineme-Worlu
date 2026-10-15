@@ -2,14 +2,19 @@ import React from 'react';
 
 const experiences = [
   {
-    company: 'BoldStart Digital',
-    role: 'Junior Web Designer (Contract)',
-    dates: 'Jul 2026 - Aug 2026',
-  },
-  {
     company: 'Favy Tech Academy',
     role: 'Product Design Lead (Part-time)',
     dates: 'Feb 2026 - May 2026',
+  },
+  {
+    company: 'Trivian Technologies',
+    role: 'Product Design Lead & Graphic Design (Full-time)',
+    dates: 'Mar 2026 - Jun 2026',
+  },
+  {
+    company: 'BoldStart Digital',
+    role: 'Junior Web Designer (Contract)',
+    dates: 'Jul 2026 - Aug 2026',
   },
 ];
 
@@ -27,9 +32,11 @@ export default function Experience() {
                   <h3 className="experience-heading">{item.company}</h3>
                   <p className="experience-subtext">{item.role}</p>
                 </div>
-                <div className="experience-dates">
-                  <span>{item.dates}</span>
-                </div>
+                {item.dates && (
+                  <div className="experience-dates">
+                    <span>{item.dates}</span>
+                  </div>
+                )}
               </div>
             </React.Fragment>
           ))}
