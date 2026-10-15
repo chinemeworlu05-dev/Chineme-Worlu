@@ -3,7 +3,7 @@ import React from 'react';
 const experiences = [
   {
     company: 'Favy Tech Academy',
-    role: 'Product Design Lead (Part-time)',
+    role: 'Product Design Tutor (Part-time)',
     dates: 'Feb 2026 - May 2026',
   },
   {
