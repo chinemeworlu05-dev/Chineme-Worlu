@@ -7,8 +7,8 @@ export default function About() {
         <h2 className="section-title reveal-text">ABOUT</h2>
         <div className="about-content-wrapper">
           <p className="about-description reveal-text" style={{ '--reveal-i': 1 }}>
-            I'm a Product Designer who designs web and mobile products and
-            builds them into live experiences. Figma is where I design, and I use
+            I'm a Product Designer and Engineer who designs web and mobile
+            products and builds them into live experiences. Figma is where I design, and I use
             code and AI tools to bring those designs to life. I enjoy the full
             journey from understanding a user’s problem to shipping something
             people can actually use. I pay attention to small details like
