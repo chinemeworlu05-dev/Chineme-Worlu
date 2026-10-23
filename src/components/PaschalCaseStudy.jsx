@@ -5,7 +5,7 @@ import './PaschalCaseStudy.css';
 
 /* Paschal's live portfolio. If emptied, the "View Site" links render as
    plain text instead of dead links. */
-const SITE_URL = '';
+const SITE_URL = 'https://paschalworks.vercel.app/';
 
 const SKILLS = [
   'Figma', 'HTML', 'CSS', 'React', 'TypeScript', 'Vite', 'Shadcn/ui',
@@ -16,7 +16,8 @@ const SKILLS = [
 const VIDEO_W = 2560;
 const VIDEO_H = 1920;
 
-/* The laptop videos fill their card. The phone videos are shown at full height
+/* The laptop videos fill their card, except `whole` ones, which are shown
+   uncropped at full height like the phones. The phone videos are shown at full height
    instead (cover would crop the top of the phone), on a background matching
    the video's own edges; `fade` melts sides that aren't a flat colour.
    Every card's background is shaded darker while the device stays bright:
@@ -24,8 +25,8 @@ const VIDEO_H = 1920;
    (x, y, w, h and corner radius r) and everything outside it is shaded; the
    laptops get a vignette that leaves the centre clear. */
 const VIDEOS = [
-  { src: '/paschal/mockup-1.webm', label: "Paschal's portfolio on desktop" },
-  { src: '/paschal/mockup-2.webm', label: "Paschal's portfolio on desktop, second walkthrough" },
+  { src: '/paschal/mockup-1.webm', label: "Paschal's portfolio on desktop", fade: true, whole: true },
+  { src: '/paschal/mockup-2.webm', label: "Paschal's portfolio on desktop, second walkthrough", fade: true, whole: true },
   {
     src: '/paschal/mobile-mockup-1.webm',
     label: "Paschal's portfolio on mobile",
@@ -58,7 +59,7 @@ function ViewSite({ className }) {
 }
 
 /* A looping mockup video that only plays (and downloads) while on screen */
-function MockupVideo({ src, label, bg, fade = false, device = null }) {
+function MockupVideo({ src, label, bg, fade = false, whole = false, device = null }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -97,7 +98,7 @@ function MockupVideo({ src, label, bg, fade = false, device = null }) {
     />
   );
 
-  if (!device) {
+  if (!device && !whole) {
     return (
       <div className="paschal-video-card" data-reveal>
         {video}
@@ -115,7 +116,7 @@ function MockupVideo({ src, label, bg, fade = false, device = null }) {
       <div className="paschal-video-frame">
         {video}
         {/* A phone-shaped hole whose shadow shades everything around it */}
-        <div
+        {device && <div
           className="paschal-video-shade paschal-video-shade--device"
           aria-hidden="true"
           style={{
@@ -125,8 +126,11 @@ function MockupVideo({ src, label, bg, fade = false, device = null }) {
             height: `${(device.h / VIDEO_H) * 100}%`,
             borderRadius: `${(device.r / device.w) * 100}% / ${(device.r / device.h) * 100}%`,
           }}
-        />
+        />}
       </div>
+      {!device && (
+        <div className="paschal-video-shade paschal-video-shade--vignette" aria-hidden="true" />
+      )}
     </div>
   );
 }
