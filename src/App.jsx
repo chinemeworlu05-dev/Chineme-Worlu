@@ -17,6 +17,7 @@ import useScrollReveal from './hooks/useScrollReveal';
 const HomeFindCaseStudy = lazy(() => import('./components/HomeFindCaseStudy'));
 const MeritMfbCaseStudy = lazy(() => import('./components/MeritMfbCaseStudy'));
 const NovaCaseStudy = lazy(() => import('./components/NovaCaseStudy'));
+const PaschalCaseStudy = lazy(() => import('./components/PaschalCaseStudy'));
 const WorkPage = lazy(() => import('./components/WorkPage'));
 
 function RouteLoader() {
@@ -28,7 +29,7 @@ function RouteLoader() {
 }
 
 // Stacked project cards, top to bottom; each blurs once the next one slides over it
-const CARD_IDS = ['projects', 'homefind', 'merit-mfb'];
+const CARD_IDS = ['projects', 'homefind', 'merit-mfb', 'paschal'];
 
 function Portfolio() {
   useScrollReveal();
@@ -104,6 +105,14 @@ function Portfolio() {
             bgColor="#3E68A1"
             caseStudyUrl="/projects/merit-mfb"
             figmaUrl="https://www.figma.com/design/AsoYtartgiSbAzpHOEmD2c/Merit-MFB?node-id=0-1&t=0FAyv0v57aEfN1hR-1"
+            isBlurred={blurredCards[2]}
+          />
+          <ProjectCard
+            id="paschal"
+            title="Paschal"
+            bgColor="#000000"
+            videoSrc="/paschal/mobile-mockup-1.webm"
+            caseStudyUrl="/projects/paschal"
           />
         </section>
         <Experience />
@@ -122,6 +131,7 @@ export default function App() {
         <Route path="/projects/homefind" element={<HomeFindCaseStudy />} />
         <Route path="/projects/merit-mfb" element={<MeritMfbCaseStudy />} />
         <Route path="/projects/nova" element={<NovaCaseStudy />} />
+        <Route path="/projects/paschal" element={<PaschalCaseStudy />} />
         <Route path="/works" element={<WorkPage />} />
         <Route path="/work" element={<Navigate to="/works" replace />} />
       </Routes>

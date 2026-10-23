@@ -1,0 +1,313 @@
+/* ==========================================================================
+   PASCHAL CASE STUDY
+   Desktop geometry measured from the 1440px reference frame and expressed
+   in vw so the composition scales with the window.
+   Stacks into a single column at 900px and below.
+   ========================================================================== */
+
+.paschal-page {
+  --paschal-pad: 5.4vw;
+  --paschal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-body);
+  overflow-x: clip;
+}
+
+/* Mobile navbar — same bar as the other case studies */
+@media (max-width: 768px) {
+  .paschal-page .header {
+    padding: 16px 0;
+  }
+}
+
+/* ==========================================================================
+   1. HERO — script title, intro and meta on the left; spheres on the right
+   ========================================================================== */
+.paschal-hero {
+  position: relative;
+  padding: clamp(130px, 14vw, 230px) var(--paschal-pad) clamp(48px, 5vw, 80px);
+}
+
+.paschal-hero-art {
+  position: absolute;
+  top: clamp(150px, 15.5vw, 260px);
+  right: 0;
+  width: 44vw;
+  height: auto;
+  pointer-events: none;
+  /* Melt the photo's dark edges into the page */
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%);
+}
+
+.paschal-hero-content {
+  position: relative; /* copy sits over the art */
+  z-index: 1;
+  max-width: 50vw;
+}
+
+.paschal-hero-title {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(56px, 7vw, 120px);
+  line-height: 1.1;
+}
+
+.paschal-hero-intro {
+  margin-top: clamp(16px, 2.2vw, 36px);
+  font-size: clamp(15px, 1.25vw, 20px);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.paschal-meta-title {
+  margin-top: clamp(32px, 3.2vw, 52px);
+  font-size: clamp(22px, 2.1vw, 34px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.paschal-meta-text {
+  margin-top: clamp(10px, 1vw, 16px);
+  font-size: clamp(15px, 1.25vw, 20px);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   VIEW SITE — centred under the hero, and again in the outro
+   ========================================================================== */
+.paschal-view-site-row {
+  display: flex;
+  justify-content: center;
+  padding: clamp(24px, 3vw, 48px) var(--paschal-pad) clamp(40px, 4.4vw, 72px);
+}
+
+.paschal-view-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: clamp(18px, 1.9vw, 30px);
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a.paschal-view-site:hover {
+  opacity: 0.7;
+}
+
+.paschal-view-site span {
+  display: inline-block;
+  transition: translate 0.25s var(--paschal-ease);
+}
+
+a.paschal-view-site:hover span {
+  translate: 4px 0;
+}
+
+/* ==========================================================================
+   2. MOCKUP VIDEOS — full-width rounded cards, stacked
+   ========================================================================== */
+.paschal-videos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 5.4vw, 78px);
+  padding: 0 var(--paschal-pad);
+}
+
+.paschal-video-card {
+  width: min(86.7vw, 1600px);
+  aspect-ratio: 1248 / 728;
+  border-radius: clamp(14px, 2.2vw, 32px);
+  overflow: hidden;
+  background-color: #282828;
+  /* Rise in as it scrolls into view */
+  opacity: 0;
+  transform: translateY(48px) scale(0.97);
+  transition: opacity 0.9s var(--paschal-ease), transform 0.9s var(--paschal-ease);
+}
+
+.paschal-video-card.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.paschal-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Phone videos: the whole 4:3 frame at card height, centred */
+.paschal-video-card--full {
+  display: flex;
+  justify-content: center;
+}
+
+.paschal-video-frame {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.paschal-video-card--fade .paschal-video {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Darker backgrounds — the device itself stays at full brightness */
+.paschal-video-card {
+  position: relative;
+}
+
+.paschal-video-shade {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Laptops: corners and edges darkened, centre left clear */
+.paschal-video-shade--vignette {
+  inset: 0;
+  background: radial-gradient(
+    ellipse 62% 70% at 50% 50%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* Phones: the shade's spread shadow covers the whole card except the phone
+   (the card's overflow: hidden trims it at the card's edges) */
+.paschal-video-shade--device {
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   3. OUTRO — site link and next project (same pill as the other case studies)
+   ========================================================================== */
+.paschal-outro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(96px, 13vw, 200px) var(--paschal-pad) clamp(90px, 11vw, 170px);
+  text-align: center;
+}
+
+.paschal-outro .paschal-view-site {
+  font-size: clamp(16px, 1.4vw, 22px);
+  margin-bottom: clamp(8px, 1.4vw, 24px);
+}
+
+.paschal-next-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #c6ff00;
+}
+
+.paschal-next-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  border-radius: 9999px;
+  background-color: #c6ff00;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(198, 255, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paschal-next-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(198, 255, 0, 0.35);
+}
+
+.paschal-outro > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--paschal-ease), transform 0.7s var(--paschal-ease);
+}
+
+.paschal-outro.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+.paschal-outro.is-in > :nth-child(2) { transition-delay: 0.1s; }
+.paschal-outro.is-in > :nth-child(3) { transition-delay: 0.2s; }
+
+/* ==========================================================================
+   4. TABLET & MOBILE — single column, spheres dimmed behind the copy
+   ========================================================================== */
+@media (max-width: 900px) {
+  .paschal-page {
+    --paschal-pad: 20px;
+  }
+
+  .paschal-hero {
+    padding-top: 120px;
+  }
+
+  .paschal-hero-art {
+    top: 90px;
+    right: -20vw;
+    width: 90vw;
+    opacity: 0.45;
+  }
+
+  .paschal-hero-content {
+    max-width: none;
+  }
+
+  /* Cards take the videos' own 4:3 shape, so every frame shows whole and large */
+  .paschal-video-card {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .paschal-video-card--fade .paschal-video {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .paschal-next-label {
+    font-size: 13px;
+    color: #ccff00;
+  }
+
+  .paschal-next-pill {
+    padding: 12px 30px;
+    background-color: #ccff00;
+    font-size: 14px;
+  }
+}
+
+/* ==========================================================================
+   5. REDUCED MOTION — everything in its final state
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .paschal-video-card,
+  .paschal-outro > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .paschal-next-pill:hover,
+  a.paschal-view-site:hover span {
+    transform: none;
+    translate: none;
+  }
+}

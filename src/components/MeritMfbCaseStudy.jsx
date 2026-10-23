@@ -241,8 +241,8 @@ export default function MeritMfbCaseStudy() {
 
           <p className="merit-next-label">Next Project</p>
 
-          <Link to="/projects/nova" className="merit-next-pill">
-            NOVA &rarr;
+          <Link to="/projects/paschal" className="merit-next-pill">
+            Paschal &rarr;
           </Link>
         </section>
       </main>

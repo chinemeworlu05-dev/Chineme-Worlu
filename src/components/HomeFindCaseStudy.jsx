@@ -4,7 +4,7 @@ import Header from './Header';
 import useScrollReveal from '../hooks/useScrollReveal';
 import './HomeFindCaseStudy.css';
 import hfScreenHome from '../assets/hf-screen-home.png';
-import hfScreenOnboarding from '../assets/hf-screen-onboarding.png';
+import hfScreenOnboardinnpmg from '../assets/hf-screen-onboarding.png';
 
 const wireframeItems = [
   { id: 13, title: 'Smart Filtering for Precise Results', img: '/case-study/13.png' },
@@ -171,7 +171,7 @@ export default function HomeFindCaseStudy() {
         </section>
 
         {/* 3. THE PROBLEM */}
-        <section className="cs-section cs-problem reveal-on-scroll">          
+        <section className="cs-section cs-problem reveal-on-scroll">
           <h2 className="cs-section-title">THE PROBLEM</h2>
           <div className="cs-problem-card">
             <p className="cs-problem-headline">
@@ -361,13 +361,13 @@ export default function HomeFindCaseStudy() {
 
             <div className="cs-bubble-icons-side">
               <svg className="cs-speech-icon" viewBox="0 0 100 100">
-                <path d="M50 15 C28 15 10 30 10 48 C10 59 17 68 28 74 C26 82 20 88 15 90 C23 91 34 87 40 81 C43 81 47 81 50 81 C72 81 90 66 90 48 C90 30 72 15 50 15 Z"/>
+                <path d="M50 15 C28 15 10 30 10 48 C10 59 17 68 28 74 C26 82 20 88 15 90 C23 91 34 87 40 81 C43 81 47 81 50 81 C72 81 90 66 90 48 C90 30 72 15 50 15 Z" />
                 <circle cx="35" cy="48" r="5" fill="#000000" />
                 <circle cx="50" cy="48" r="5" fill="#000000" />
                 <circle cx="65" cy="48" r="5" fill="#000000" />
               </svg>
               <svg className="cs-speech-icon small" viewBox="0 0 100 100">
-                <path d="M50 15 C28 15 10 30 10 48 C10 59 17 68 28 74 C26 82 20 88 15 90 C23 91 34 87 40 81 C43 81 47 81 50 81 C72 81 90 66 90 48 C90 30 72 15 50 15 Z"/>
+                <path d="M50 15 C28 15 10 30 10 48 C10 59 17 68 28 74 C26 82 20 88 15 90 C23 91 34 87 40 81 C43 81 47 81 50 81 C72 81 90 66 90 48 C90 30 72 15 50 15 Z" />
                 <circle cx="35" cy="48" r="5" fill="#000000" />
                 <circle cx="50" cy="48" r="5" fill="#000000" />
                 <circle cx="65" cy="48" r="5" fill="#000000" />

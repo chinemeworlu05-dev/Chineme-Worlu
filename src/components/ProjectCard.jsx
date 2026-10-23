@@ -30,6 +30,37 @@ function useTitleReveal() {
   return [ref, revealed];
 }
 
+/* Plays the card's background video only while it is on screen */
+function useVisiblePlayback() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!('IntersectionObserver' in window)) {
+      video.play().catch(() => {});
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return ref;
+}
+
 export default function ProjectCard({
   id,
   title,
@@ -40,11 +71,24 @@ export default function ProjectCard({
   caseStudyUrl = null,
   isBlurred = false,
   logoScale = 1, // shrinks a logo that reads larger than the others
+  videoSrc = null, // a looping mockup video that fills the card instead of a logo
 
 }) {
   const [titleRef, titleRevealed] = useTitleReveal();
+  const videoRef = useVisiblePlayback();
 
-  const cardInner = (
+  const cardInner = videoSrc ? (
+    <video
+      ref={videoRef}
+      className="project-card-video"
+      src={videoSrc}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+    />
+  ) : (
     <>
       <div
         ref={titleRef}
@@ -67,7 +111,7 @@ export default function ProjectCard({
       <Link
         id={id}
         to={caseStudyUrl}
-        className={`project-card ${isBlurred ? 'card-blurred' : ''}`}
+        className={`project-card${videoSrc ? ' project-card--video' : ''} ${isBlurred ? 'card-blurred' : ''}`}
         style={{ backgroundColor: bgColor }}
         aria-label={`View ${title} Case Study`}
       >
@@ -81,7 +125,7 @@ export default function ProjectCard({
     return (
       <div
         id={id}
-        className={`project-card project-card--static ${isBlurred ? 'card-blurred' : ''}`}
+        className={`project-card${videoSrc ? ' project-card--video' : ''} project-card--static ${isBlurred ? 'card-blurred' : ''}`}
         style={{ backgroundColor: bgColor }}
         role="img"
         aria-label={title}
@@ -95,7 +139,7 @@ export default function ProjectCard({
     <a
       id={id}
       href={figmaUrl}
-      className={`project-card ${isBlurred ? 'card-blurred' : ''}`}
+      className={`project-card${videoSrc ? ' project-card--video' : ''} ${isBlurred ? 'card-blurred' : ''}`}
       style={{ backgroundColor: bgColor }}
       target={figmaUrl ? '_blank' : undefined}
       rel={figmaUrl ? 'noopener noreferrer' : undefined}

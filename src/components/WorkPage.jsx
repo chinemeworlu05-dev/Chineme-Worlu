@@ -7,7 +7,7 @@ import homeFindLogo from '../assets/home-find-logo.png';
 import meritLogo from '../assets/merit-mfb-logo.png';
 import novaLogo from '../assets/nova-logo.png';
 
-/* Cards zig-zag down the page: left, right, left */
+/* Cards zig-zag down the page: left, right, left, right */
 const PROJECTS = [
   {
     id: 'work-nova',
@@ -30,6 +30,13 @@ const PROJECTS = [
     logoSrc: meritLogo,
     bgColor: '#3E68A1',
     caseStudyUrl: '/projects/merit-mfb',
+  },
+  {
+    id: 'work-paschal',
+    title: 'Paschal',
+    bgColor: '#000000',
+    videoSrc: '/paschal/mobile-mockup-1.webm',
+    caseStudyUrl: '/projects/paschal',
   },
 ];
 
