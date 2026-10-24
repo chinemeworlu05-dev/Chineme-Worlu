@@ -17,7 +17,7 @@ const VIDEO_W = 2560;
 const VIDEO_H = 1920;
 
 /* The walkthroughs play this much faster than they were recorded */
-const PLAYBACK_RATE = 1.5;
+const PLAYBACK_RATE = 2;
 
 /* The laptop videos fill their card, except `whole` ones, which are shown
    uncropped at full height like the phones. The phone videos are shown at full height
@@ -67,17 +67,27 @@ function MockupVideo({ src, label, bg, fade = false, whole = false, device = nul
 
   useEffect(() => {
     const video = ref.current;
+    if (!video) return undefined;
     video.defaultPlaybackRate = PLAYBACK_RATE;
     video.playbackRate = PLAYBACK_RATE;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const onPlay = () => {
+      video.playbackRate = PLAYBACK_RATE;
+    };
+    video.addEventListener('play', onPlay);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return () => video.removeEventListener('play', onPlay);
+    }
     if (!('IntersectionObserver' in window)) {
       video.play().catch(() => {});
-      return undefined;
+      return () => video.removeEventListener('play', onPlay);
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          video.playbackRate = PLAYBACK_RATE;
           video.play().catch(() => {});
         } else {
           video.pause();
@@ -87,7 +97,10 @@ function MockupVideo({ src, label, bg, fade = false, whole = false, device = nul
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('play', onPlay);
+    };
   }, []);
 
   const video = (

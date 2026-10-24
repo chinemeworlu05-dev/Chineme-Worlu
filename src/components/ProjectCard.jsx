@@ -31,21 +31,33 @@ function useTitleReveal() {
 }
 
 /* Plays the card's background video only while it is on screen */
-function useVisiblePlayback() {
+function useVisiblePlayback(playbackRate = 2) {
   const ref = useRef(null);
 
   useEffect(() => {
     const video = ref.current;
     if (!video) return undefined;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    video.defaultPlaybackRate = playbackRate;
+    video.playbackRate = playbackRate;
+
+    const onPlay = () => {
+      video.playbackRate = playbackRate;
+    };
+    video.addEventListener('play', onPlay);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return () => video.removeEventListener('play', onPlay);
+    }
     if (!('IntersectionObserver' in window)) {
       video.play().catch(() => {});
-      return undefined;
+      return () => video.removeEventListener('play', onPlay);
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          video.playbackRate = playbackRate;
           video.play().catch(() => {});
         } else {
           video.pause();
@@ -55,8 +67,11 @@ function useVisiblePlayback() {
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('play', onPlay);
+    };
+  }, [playbackRate]);
 
   return ref;
 }
@@ -72,10 +87,10 @@ export default function ProjectCard({
   isBlurred = false,
   logoScale = 1, // shrinks a logo that reads larger than the others
   videoSrc = null, // a looping mockup video that fills the card instead of a logo
-
+  playbackRate = 2,
 }) {
   const [titleRef, titleRevealed] = useTitleReveal();
-  const videoRef = useVisiblePlayback();
+  const videoRef = useVisiblePlayback(playbackRate);
 
   const cardInner = videoSrc ? (
     <video
