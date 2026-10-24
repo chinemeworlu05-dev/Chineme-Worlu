@@ -247,6 +247,53 @@ a.paschal-view-site:hover span {
 .paschal-outro.is-in > :nth-child(3) { transition-delay: 0.2s; }
 
 /* ==========================================================================
+   HERO ENTRANCE — the script title writes itself in left to right, the copy
+   rises in behind it, and the spheres fade up then keep floating
+   ========================================================================== */
+@keyframes paschal-write {
+  from { clip-path: inset(-30% 100% -30% 0); }
+  to   { clip-path: inset(-30% -10% -30% 0); }
+}
+
+@keyframes paschal-rise {
+  from { opacity: 0; transform: translateY(28px); }
+}
+
+/* No `to` frame, so the art settles at its own opacity (dimmed on mobile) */
+@keyframes paschal-art-in {
+  from { opacity: 0; transform: scale(0.9) rotate(-6deg); }
+}
+
+@keyframes paschal-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -18px; }
+}
+
+.paschal-hero-art {
+  animation:
+    paschal-art-in 1.6s var(--paschal-ease) 0.1s both,
+    paschal-float 7s ease-in-out 1.7s infinite;
+}
+
+.paschal-hero-title {
+  animation: paschal-write 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+}
+
+.paschal-hero-content > :not(.paschal-hero-title) {
+  animation: paschal-rise 0.9s var(--paschal-ease) both;
+}
+
+.paschal-hero-content > :nth-child(2) { animation-delay: 0.7s; }
+.paschal-hero-content > :nth-child(3) { animation-delay: 0.85s; }
+.paschal-hero-content > :nth-child(4) { animation-delay: 0.95s; }
+.paschal-hero-content > :nth-child(5) { animation-delay: 1.05s; }
+.paschal-hero-content > :nth-child(6) { animation-delay: 1.15s; }
+
+.paschal-view-site-row {
+  animation: paschal-rise 0.9s var(--paschal-ease) 1.3s both;
+}
+
+/* ==========================================================================
    4. TABLET & MOBILE — single column, spheres dimmed behind the copy
    ========================================================================== */
 @media (max-width: 900px) {
@@ -298,6 +345,13 @@ a.paschal-view-site:hover span {
    5. REDUCED MOTION — everything in its final state
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  .paschal-hero-art,
+  .paschal-hero-title,
+  .paschal-hero-content > :not(.paschal-hero-title),
+  .paschal-view-site-row {
+    animation: none;
+  }
+
   .paschal-video-card,
   .paschal-outro > * {
     opacity: 1;

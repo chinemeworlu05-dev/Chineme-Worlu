@@ -16,6 +16,9 @@ const SKILLS = [
 const VIDEO_W = 2560;
 const VIDEO_H = 1920;
 
+/* The walkthroughs play this much faster than they were recorded */
+const PLAYBACK_RATE = 1.5;
+
 /* The laptop videos fill their card, except `whole` ones, which are shown
    uncropped at full height like the phones. The phone videos are shown at full height
    instead (cover would crop the top of the phone), on a background matching
@@ -64,6 +67,8 @@ function MockupVideo({ src, label, bg, fade = false, whole = false, device = nul
 
   useEffect(() => {
     const video = ref.current;
+    video.defaultPlaybackRate = PLAYBACK_RATE;
+    video.playbackRate = PLAYBACK_RATE;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     if (!('IntersectionObserver' in window)) {
       video.play().catch(() => {});
