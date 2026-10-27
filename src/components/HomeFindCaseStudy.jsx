@@ -4,7 +4,7 @@ import Header from './Header';
 import useScrollReveal from '../hooks/useScrollReveal';
 import './HomeFindCaseStudy.css';
 import hfScreenHome from '../assets/hf-screen-home.png';
-import hfScreenOnboardinnpmg from '../assets/hf-screen-onboarding.png';
+import hfScreenOnboarding from '../assets/hf-screen-onboarding.png';
 
 const wireframeItems = [
   { id: 13, title: 'Smart Filtering for Precise Results', img: '/case-study/13.png' },
@@ -61,13 +61,12 @@ function InsightCircle({ value, decimals = 0, halves }) {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!active) return undefined;
+  const [reduceMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setCount(value);
-      return undefined;
-    }
+  useEffect(() => {
+    if (!active || reduceMotion) return undefined;
 
     let frame;
     let start;
@@ -80,9 +79,9 @@ function InsightCircle({ value, decimals = 0, halves }) {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [active, value]);
+  }, [active, value, reduceMotion]);
 
-  const shown = count.toFixed(decimals);
+  const shown = (active && reduceMotion ? value : count).toFixed(decimals);
 
   return (
     <div
