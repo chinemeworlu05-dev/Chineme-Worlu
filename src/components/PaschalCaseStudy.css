@@ -100,12 +100,14 @@ a.paschal-view-site:hover {
   opacity: 0.7;
 }
 
-.paschal-view-site span {
+.paschal-view-site span,
+.paschal-outro-link span {
   display: inline-block;
   transition: translate 0.25s var(--paschal-ease);
 }
 
-a.paschal-view-site:hover span {
+a.paschal-view-site:hover span,
+a.paschal-outro-link:hover span {
   translate: 4px 0;
 }
 
@@ -195,13 +197,23 @@ a.paschal-view-site:hover span {
   flex-direction: column;
   align-items: center;
   gap: 18px;
-  padding: clamp(96px, 13vw, 200px) var(--paschal-pad) clamp(90px, 11vw, 170px);
+  padding: clamp(72px, 10vw, 150px) var(--paschal-pad) clamp(90px, 11vw, 170px);
   text-align: center;
 }
 
-.paschal-outro .paschal-view-site {
-  font-size: clamp(16px, 1.4vw, 22px);
-  margin-bottom: clamp(8px, 1.4vw, 24px);
+.paschal-outro-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a.paschal-outro-link:hover {
+  opacity: 0.7;
 }
 
 .paschal-next-label {
@@ -360,7 +372,8 @@ a.paschal-view-site:hover span {
   }
 
   .paschal-next-pill:hover,
-  a.paschal-view-site:hover span {
+  a.paschal-view-site:hover span,
+  a.paschal-outro-link:hover span {
     transform: none;
     translate: none;
   }

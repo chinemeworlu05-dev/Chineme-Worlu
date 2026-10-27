@@ -17,7 +17,7 @@ const VIDEO_W = 2560;
 const VIDEO_H = 1920;
 
 /* The walkthroughs play this much faster than they were recorded */
-const PLAYBACK_RATE = 2;
+const PLAYBACK_RATE = 3;
 
 /* The laptop videos fill their card, except `whole` ones, which are shown
    uncropped at full height like the phones. The phone videos are shown at full height
@@ -235,10 +235,10 @@ export default function PaschalCaseStudy() {
 
         {/* 3. OUTRO */}
         <section className="paschal-outro" data-reveal>
-          <ViewSite className="paschal-view-site" />
+          <ViewSite className="paschal-outro-link" />
           <p className="paschal-next-label">Next Project</p>
           <Link to="/projects/nova" className="paschal-next-pill">
-            NOVA &rarr;
+            Nova &rarr;
           </Link>
         </section>
       </main>
